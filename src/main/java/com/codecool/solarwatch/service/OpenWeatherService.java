@@ -20,12 +20,10 @@ public class OpenWeatherService {
     private final CityRepository cityRepository;
     private static final Logger logger = LoggerFactory.getLogger(OpenWeatherService.class);
 
-    @Autowired
     public OpenWeatherService(WebClient webClient, CityRepository cityRepository) {
         this.webClient = webClient;
         this.cityRepository = cityRepository;
     }
-
 
     public City getCity(String cityName) {
         return cityRepository.findByNameIgnoreCase(cityName)
