@@ -3,6 +3,7 @@ package com.codecool.solarwatch.controller;
 import com.codecool.solarwatch.exception.InvalidCityException;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
@@ -38,5 +39,12 @@ public class ControllerAdvice {
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     public String DataIntegrityViolationExceptionHandler() {
         return "This username already exists. Please choose another one.";
+    }
+
+    @ResponseBody
+    @ExceptionHandler(UsernameNotFoundException.class)
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    public String UsernameNotFoundExceptionHandler(UsernameNotFoundException ex) {
+        return ex.getMessage();
     }
 }
