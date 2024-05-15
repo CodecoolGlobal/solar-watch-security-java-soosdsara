@@ -3,7 +3,7 @@ package com.codecool.solarwatch.model;
 import lombok.Data;
 
 @Data
-public class newMemberDTO {
+public class MemberDTO {
     private String username;
     private String password;
 }
