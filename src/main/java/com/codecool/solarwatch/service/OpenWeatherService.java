@@ -4,6 +4,7 @@ import com.codecool.solarwatch.exception.InvalidCityException;
 import com.codecool.solarwatch.model.CityDTO;
 import com.codecool.solarwatch.model.entity.City;
 import com.codecool.solarwatch.service.repository.CityRepository;
+import jakarta.transaction.Transactional;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,6 +29,20 @@ public class OpenWeatherService {
     public City getCity(String cityName) {
         return cityRepository.findByNameIgnoreCase(cityName)
                 .orElseGet(() -> saveCity(cityName));
+    }
+    @Transactional
+    public void updateCity(String cityName, CityDTO cityDTO) {
+        City city = cityRepository.findByNameIgnoreCase(cityName)
+                .orElseThrow(() -> new InvalidCityException("Invalid city name: " + cityName));
+
+        city.setName(cityDTO.name());
+        city.setCountry(cityDTO.country());
+        city.setState(cityDTO.state());
+        city.setLatitude(cityDTO.lat());
+        city.setLongitude(cityDTO.lon());
+
+        cityRepository.save(city);
+
     }
 
     private City saveCity(String cityName) {

@@ -1,5 +1,6 @@
 package com.codecool.solarwatch.service;
 
+import com.codecool.solarwatch.model.CityDTO;
 import com.codecool.solarwatch.model.SunTimeApiResponseDTO;
 import com.codecool.solarwatch.model.SunTimeReportDTO;
 import com.codecool.solarwatch.model.entity.City;
@@ -67,4 +68,5 @@ public class SunTimeService {
     private void logSunTimes(SunTime sunTimeReport) {
         logger.info("Sunrise: {}, Sunset: {}", sunTimeReport.getSunrise(), sunTimeReport.getSunset());
     }
+
 }
