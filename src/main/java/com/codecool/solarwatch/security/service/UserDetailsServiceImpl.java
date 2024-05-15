@@ -1,4 +1,4 @@
-package com.codecool.solarwatch.service.security;
+package com.codecool.solarwatch.security.service;
 
 import com.codecool.solarwatch.model.entity.Member;
 import com.codecool.solarwatch.model.entity.Role;

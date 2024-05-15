@@ -1,4 +1,4 @@
-package com.codecool.solarwatch.service.security.jwt;
+package com.codecool.solarwatch.security.jwt;
 
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;

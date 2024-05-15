@@ -1,8 +1,8 @@
-package com.codecool.solarwatch.service.security;
+package com.codecool.solarwatch.security;
 
-import com.codecool.solarwatch.service.security.jwt.AuthEntryPointJwt;
-import com.codecool.solarwatch.service.security.jwt.AuthTokenFilter;
-import com.codecool.solarwatch.service.security.jwt.JwtUtils;
+import com.codecool.solarwatch.security.jwt.AuthEntryPointJwt;
+import com.codecool.solarwatch.security.jwt.AuthTokenFilter;
+import com.codecool.solarwatch.security.jwt.JwtUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -64,7 +64,7 @@ public class WebSecurityConfig {
                 .exceptionHandling(exception -> exception.authenticationEntryPoint(unauthorizedHandler))
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authorizeHttpRequests(auth ->
-                        auth.requestMatchers("user/**").permitAll()
+                        auth.requestMatchers("member/**").permitAll()
                                 .requestMatchers("api/sun-times/**").hasRole("MEMBER")
                                 .requestMatchers("/error").permitAll()
                                 .anyRequest().authenticated()
