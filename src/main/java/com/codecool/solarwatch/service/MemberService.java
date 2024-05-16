@@ -2,7 +2,7 @@ package com.codecool.solarwatch.service;
 
 import com.codecool.solarwatch.model.entity.Member;
 import com.codecool.solarwatch.model.entity.Role;
-import com.codecool.solarwatch.model.MemberDTO;
+import com.codecool.solarwatch.model.dto.MemberDTO;
 import com.codecool.solarwatch.service.repository.MemberRepository;
 import jakarta.transaction.Transactional;
 import org.springframework.security.crypto.password.PasswordEncoder;

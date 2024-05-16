@@ -1,10 +1,9 @@
 package com.codecool.solarwatch.controller;
 
 import com.codecool.solarwatch.model.JwtResponse;
-import com.codecool.solarwatch.model.MemberDTO;
+import com.codecool.solarwatch.model.dto.MemberDTO;
 import com.codecool.solarwatch.security.jwt.JwtUtils;
 import com.codecool.solarwatch.service.MemberService;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -37,7 +36,7 @@ public class MemberController {
     @PostMapping("/register")
     public ResponseEntity<Void> createUser(@RequestBody MemberDTO request) {
         memberService.createMember(request);
-        return ResponseEntity.status(HttpStatus.CREATED).build();
+        return ResponseEntity.ok(null);
     }
 
     @PostMapping("/signin")
