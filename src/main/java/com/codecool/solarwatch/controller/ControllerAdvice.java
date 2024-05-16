@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
 import java.time.format.DateTimeParseException;
+import java.util.NoSuchElementException;
 
 @org.springframework.web.bind.annotation.ControllerAdvice
 public class ControllerAdvice {
@@ -47,4 +48,12 @@ public class ControllerAdvice {
     public String UsernameNotFoundExceptionHandler(UsernameNotFoundException ex) {
         return ex.getMessage();
     }
+
+    @ResponseBody
+    @ExceptionHandler(NoSuchElementException.class)
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    public String NoSuchElementExceptionHandler(NoSuchElementException ex) {
+        return ex.getMessage();
+    }
+
 }

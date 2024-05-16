@@ -1,7 +1,7 @@
 /*
 package com.codecool.solarwatch.service;
 
-import com.codecool.solarwatch.model.CityDTO;
+import com.codecool.solarwatch.model.DTO.CityDTO;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.web.client.RestTemplate;

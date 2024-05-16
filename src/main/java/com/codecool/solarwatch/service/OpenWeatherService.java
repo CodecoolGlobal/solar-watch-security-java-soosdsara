@@ -1,16 +1,16 @@
 package com.codecool.solarwatch.service;
 
 import com.codecool.solarwatch.exception.InvalidCityException;
-import com.codecool.solarwatch.model.CityDTO;
+import com.codecool.solarwatch.model.dto.CityDTO;
 import com.codecool.solarwatch.model.entity.City;
 import com.codecool.solarwatch.service.repository.CityRepository;
 import jakarta.transaction.Transactional;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.web.client.RestTemplate;
 import org.springframework.web.reactive.function.client.WebClient;
+
+import java.util.NoSuchElementException;
 
 @Service
 public class OpenWeatherService {
@@ -28,35 +28,45 @@ public class OpenWeatherService {
 
     public City getCity(String cityName) {
         return cityRepository.findByNameIgnoreCase(cityName)
-                .orElseGet(() -> saveCity(cityName));
+                .orElseGet(() -> fetchNewCityToDB(cityName));
     }
+
     @Transactional
     public void updateCity(String cityName, CityDTO cityDTO) {
         City city = cityRepository.findByNameIgnoreCase(cityName)
-                .orElseThrow(() -> new InvalidCityException("Invalid city name: " + cityName));
+                .orElseThrow(() -> new NoSuchElementException(cityName));
 
-        city.setName(cityDTO.name());
-        city.setCountry(cityDTO.country());
-        city.setState(cityDTO.state());
-        city.setLatitude(cityDTO.lat());
-        city.setLongitude(cityDTO.lon());
+        setCityData(city, cityDTO);
 
         cityRepository.save(city);
-
+        logger.info("City updated successfully: {}", cityName);
     }
 
-    private City saveCity(String cityName) {
+    @Transactional
+    public void deleteCity(String cityName) {
+        cityRepository.deleteByNameIgnoreCase(cityName);
+        logger.info("City deleted successfully: {}", cityName);
+    }
 
-        CityDTO cityDTO = this.getLatitudeAndLongitude(cityName);
+    private City fetchNewCityToDB(String cityName) {
+        CityDTO cityDTO = getLatitudeAndLongitude(cityName);
+        logger.info("New city information saved for: {}", cityName);
+        return saveCity(cityDTO);
+    }
 
+    public City saveCity(CityDTO cityDTO) {
         City city = new City();
+        setCityData(city, cityDTO);
+        logger.info("City saved: {}", city.getName());
+        return cityRepository.save(city);
+    }
+
+    private void setCityData(City city, CityDTO cityDTO) {
         city.setName(cityDTO.name());
         city.setCountry(cityDTO.country());
         city.setState(cityDTO.state());
         city.setLatitude(cityDTO.lat());
         city.setLongitude(cityDTO.lon());
-
-        return cityRepository.save(city);
     }
 
     private CityDTO getLatitudeAndLongitude(String city) {
@@ -70,9 +80,10 @@ public class OpenWeatherService {
                 .block();
 
         if (response == null || response.length == 0) {
+            logger.error("Invalid city name received from API: {}", city);
             throw new InvalidCityException("Invalid city name: " + city);
         }
+        logger.info("City data fetched successfully from API for city: {}", city);
         return response[0];
     }
-
 }
