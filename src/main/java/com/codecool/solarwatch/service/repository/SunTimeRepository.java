@@ -12,5 +12,6 @@ import java.time.LocalDate;
 public interface SunTimeRepository extends JpaRepository<SunTime, Long> {
 
     Optional<SunTime> findByCityAndDate(City city, LocalDate date);
+    void deleteByCityAndDate(City city, LocalDate date);
 
 }
