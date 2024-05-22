@@ -18,9 +18,6 @@ public class City {
     private double longitude;
     private double latitude;
 
-/*    @OneToMany(mappedBy = "city")
-    private List<SunTime> sunTimes = new ArrayList<>();*/
-
     public long getId() {
         return id;
     }
@@ -68,13 +65,6 @@ public class City {
     public void setLatitude(double latitude) {
         this.latitude = latitude;
     }
-/*
-    public List<SunTime> getSunTimes() {
-        return sunTimes;
-    }
 
-    public void setSunTimes(List<SunTime> sunTimes) {
-        this.sunTimes = sunTimes;
-    }*/
 }
 
