@@ -4,6 +4,7 @@ import com.codecool.solarwatch.exception.InvalidCityException;
 import jakarta.servlet.ServletException;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -45,9 +46,9 @@ public class ControllerAdvice {
     }
 
     @ResponseBody
-    @ExceptionHandler(UsernameNotFoundException.class)
-    @ResponseStatus(HttpStatus.BAD_REQUEST)
-    public String UsernameNotFoundExceptionHandler(UsernameNotFoundException ex) {
+    @ExceptionHandler(AuthenticationException.class)
+    @ResponseStatus(HttpStatus.UNAUTHORIZED)
+    public String AuthenticationExceptionHandler(AuthenticationException ex) {
         return ex.getMessage();
     }
 
