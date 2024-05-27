@@ -1,6 +1,7 @@
 package com.codecool.solarwatch.controller;
 
 import com.codecool.solarwatch.exception.InvalidCityException;
+import jakarta.servlet.ServletException;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -8,6 +9,7 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
+import java.io.IOException;
 import java.time.format.DateTimeParseException;
 import java.util.NoSuchElementException;
 
@@ -53,6 +55,20 @@ public class ControllerAdvice {
     @ExceptionHandler(NoSuchElementException.class)
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     public String NoSuchElementExceptionHandler(NoSuchElementException ex) {
+        return ex.getMessage();
+    }
+
+    @ResponseBody
+    @ExceptionHandler(ServletException.class)
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    public String ServletExceptionHandler(ServletException ex) {
+        return ex.getMessage();
+    }
+
+    @ResponseBody
+    @ExceptionHandler(IOException.class)
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    public String IOExceptionHandler(IOException ex) {
         return ex.getMessage();
     }
 
