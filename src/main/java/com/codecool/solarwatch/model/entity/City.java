@@ -2,9 +2,6 @@ package com.codecool.solarwatch.model.entity;
 
 import jakarta.persistence.*;
 
-import java.util.ArrayList;
-import java.util.List;
-
 @Entity
 @Table
 public class City {

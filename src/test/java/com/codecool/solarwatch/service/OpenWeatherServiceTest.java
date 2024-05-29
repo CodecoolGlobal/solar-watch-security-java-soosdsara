@@ -1,6 +1,6 @@
 package com.codecool.solarwatch.service;
 
-import com.codecool.solarwatch.model.dto.CityDTO;
+import com.codecool.solarwatch.model.dto.CityRequestDTO;
 import com.codecool.solarwatch.model.entity.City;
 import com.codecool.solarwatch.service.repository.CityRepository;
 import org.junit.jupiter.api.BeforeEach;
@@ -54,7 +54,7 @@ public class OpenWeatherServiceTest {
     @Test
     public void testUpdateCity_InvalidCity_ThrowsException() {
         String cityName = "InvalidCity";
-        CityDTO cityDTO = new CityDTO(111, 111, "Country", null, cityName);
+        CityRequestDTO cityDTO = new CityRequestDTO(111, 111, "Country", null, cityName);
 
         when(cityRepository.findByNameIgnoreCase(cityName)).thenReturn(Optional.empty());
 
@@ -67,7 +67,7 @@ public class OpenWeatherServiceTest {
     @Test
     public void testUpdateCity_ValidCity_UpdatesCityInRepository() {
         String cityName = "Budapest";
-        CityDTO cityDTO = new CityDTO(111, 111, "Country", null, cityName);
+        CityRequestDTO cityDTO = new CityRequestDTO(111, 111, "Country", null, cityName);
         City existingCity = new City();
         existingCity.setName(cityName);
 
@@ -92,7 +92,7 @@ public class OpenWeatherServiceTest {
 
     @Test
     public void testSaveCity_ValidCity_SavesCityToRepository() {
-        CityDTO cityDTO = new CityDTO(111, 111, "Country", null, "Budapest");
+        CityRequestDTO cityDTO = new CityRequestDTO(111, 111, "Country", null, "Budapest");
 
         when(cityRepository.save(any())).thenReturn(new City());
 

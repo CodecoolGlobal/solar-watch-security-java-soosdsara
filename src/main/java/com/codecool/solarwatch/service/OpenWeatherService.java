@@ -1,7 +1,7 @@
 package com.codecool.solarwatch.service;
 
 import com.codecool.solarwatch.exception.InvalidCityException;
-import com.codecool.solarwatch.model.dto.CityDTO;
+import com.codecool.solarwatch.model.dto.CityRequestDTO;
 import com.codecool.solarwatch.model.entity.City;
 import com.codecool.solarwatch.service.repository.CityRepository;
 import jakarta.transaction.Transactional;
@@ -32,7 +32,7 @@ public class OpenWeatherService {
     }
 
     @Transactional
-    public void updateCity(String cityName, CityDTO cityDTO) {
+    public void updateCity(String cityName, CityRequestDTO cityDTO) {
         City city = cityRepository.findByNameIgnoreCase(cityName)
                 .orElseThrow(() -> new NoSuchElementException(cityName));
 
@@ -49,19 +49,19 @@ public class OpenWeatherService {
     }
 
     private City fetchNewCityToDB(String cityName) {
-        CityDTO cityDTO = getLatitudeAndLongitude(cityName);
+        CityRequestDTO cityDTO = getLatitudeAndLongitude(cityName);
         logger.info("New city information saved for: {}", cityName);
         return saveCity(cityDTO);
     }
 
-    public City saveCity(CityDTO cityDTO) {
+    public City saveCity(CityRequestDTO cityDTO) {
         City city = new City();
         setCityData(city, cityDTO);
         logger.info("City saved: {}", city.getName());
         return cityRepository.save(city);
     }
 
-    private void setCityData(City city, CityDTO cityDTO) {
+    private void setCityData(City city, CityRequestDTO cityDTO) {
         city.setName(cityDTO.name());
         city.setCountry(cityDTO.country());
         city.setState(cityDTO.state());
@@ -69,14 +69,14 @@ public class OpenWeatherService {
         city.setLongitude(cityDTO.lon());
     }
 
-    private CityDTO getLatitudeAndLongitude(String city) {
+    private CityRequestDTO getLatitudeAndLongitude(String city) {
         String url = String.format("%s?q=%s&limit=1&appid=%s", OPENWEATHER_API_URL, city, API_KEY);
 
-        CityDTO[] response = webClient
+        CityRequestDTO[] response = webClient
                 .get()
                 .uri(url)
                 .retrieve()
-                .bodyToMono(CityDTO[].class)
+                .bodyToMono(CityRequestDTO[].class)
                 .block();
 
         if (response == null || response.length == 0) {
