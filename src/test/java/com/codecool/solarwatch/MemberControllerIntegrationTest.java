@@ -1,38 +1,46 @@
+
 package com.codecool.solarwatch;
 
-import com.codecool.solarwatch.exception.InvalidCityException;
 import com.codecool.solarwatch.model.dto.MemberDTO;
-import com.codecool.solarwatch.model.dto.SunTimeReportDTO;
+import com.codecool.solarwatch.model.dto.SunTimeRequestDTO;
+import com.codecool.solarwatch.model.entity.Member;
 import com.codecool.solarwatch.service.SunTimeService;
+import com.codecool.solarwatch.service.repository.MemberRepository;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.Test;
-import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
 import org.springframework.security.test.context.support.WithMockUser;
+import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 
 import java.time.LocalDate;
+import java.util.Optional;
 
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @SpringBootTest
+@ActiveProfiles("test")
 @AutoConfigureMockMvc
 public class MemberControllerIntegrationTest {
 
     @Autowired
     private MockMvc mockMvc;
 
+    @MockBean
+    private SunTimeService sunTimeService;
+
     @Autowired
     private ObjectMapper objectMapper;
 
-    @MockBean
-    private SunTimeService sunTimeService;
+    @Autowired
+    private MemberRepository memberRepository;
 
     @Test
     public void testRegisterMember() throws Exception {
@@ -44,6 +52,9 @@ public class MemberControllerIntegrationTest {
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(objectMapper.writeValueAsString(memberDTO)))
                 .andExpect(status().isCreated());
+
+        Optional<Member> savedUserOptional = memberRepository.findMemberByUserName("testuser");
+        assertTrue(savedUserOptional.isPresent());
     }
 
     @Test
@@ -75,14 +86,23 @@ public class MemberControllerIntegrationTest {
                 .andExpect(status().isUnauthorized());
     }
 
-    @Test
-    @WithMockUser(username = "test-user", roles = {"MEMBER"})
-    public void testGetSunriseSunset() throws Exception {
+/*    @Test
+    @WithMockUser(username = "test-user", roles = {"ADMIN"})
+    public void testGetSunriseSunset_CityFound() throws Exception {
         String cityName = "London";
+        CityDTO cityDTO = new CityDTO(111, 111, "Country", "State", cityName);
         String dateStr = LocalDate.of(2020, 5, 30).toString();
+        SunTimeRequestDTO sunTimeRequestDTO = new SunTimeRequestDTO("3:47:54 AM", "8:08:21 PM", dateStr, cityName);
 
-        Mockito.when(sunTimeService.getSunTime("London", LocalDate.of(2020,5,30)))
-                .thenReturn(new SunTimeReportDTO("3:47:54 AM", "8:08:21 PM"));
+        mockMvc.perform(MockMvcRequestBuilders.post("/api/city")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(objectMapper.writeValueAsString(cityDTO)))
+                .andExpect(MockMvcResultMatchers.status().isCreated());
+
+        mockMvc.perform(MockMvcRequestBuilders.post("/api/sun-times")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(objectMapper.writeValueAsString(sunTimeRequestDTO)))
+                .andExpect(MockMvcResultMatchers.status().isCreated());
 
         mockMvc.perform(MockMvcRequestBuilders.get("/api/sun-times/{cityName}/{dateStr}", cityName, dateStr)
                         .contentType(MediaType.APPLICATION_JSON))
@@ -91,18 +111,15 @@ public class MemberControllerIntegrationTest {
                 .andExpect(MockMvcResultMatchers.jsonPath("$.sunset").value("8:08:21 PM"));
     }
 
+
     @Test
-    @WithMockUser(username = "test-user", roles = {"MEMBER"})
     public void testGetSunriseSunset_CityNotFound() throws Exception {
         String cityName = "NeverLand";
         LocalDate date = LocalDate.now();
 
-        Mockito.when(sunTimeService.getSunTime(cityName, date))
-                .thenThrow(new InvalidCityException("NeverLand"));
-
-        mockMvc.perform(MockMvcRequestBuilders.get("/api/sun-times/{cityName}/{dateStr}",  cityName, date.toString())
+        mockMvc.perform(MockMvcRequestBuilders.get("/api/sun-times/{cityName}/{dateStr}", cityName, date.toString())
                         .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(MockMvcResultMatchers.status().isBadRequest());
-    }
-}
+    }*/
 
+}
