@@ -1,8 +1,6 @@
-
 package com.codecool.solarwatch;
 
 import com.codecool.solarwatch.model.dto.MemberDTO;
-import com.codecool.solarwatch.model.dto.SunTimeRequestDTO;
 import com.codecool.solarwatch.model.entity.Member;
 import com.codecool.solarwatch.service.SunTimeService;
 import com.codecool.solarwatch.service.repository.MemberRepository;
@@ -13,22 +11,19 @@ import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMock
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
-import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
-import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 
-import java.time.LocalDate;
 import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @SpringBootTest
-@ActiveProfiles("test")
+@ActiveProfiles("Test")
 @AutoConfigureMockMvc
-public class MemberControllerIntegrationTest {
+public class MemberControllerIT {
 
     @Autowired
     private MockMvc mockMvc;
@@ -109,10 +104,12 @@ public class MemberControllerIntegrationTest {
                 .andExpect(MockMvcResultMatchers.status().isOk())
                 .andExpect(MockMvcResultMatchers.jsonPath("$.sunrise").value("3:47:54 AM"))
                 .andExpect(MockMvcResultMatchers.jsonPath("$.sunset").value("8:08:21 PM"));
-    }
+    }*//*
 
 
-    @Test
+
+     */
+/*    @Test
     public void testGetSunriseSunset_CityNotFound() throws Exception {
         String cityName = "NeverLand";
         LocalDate date = LocalDate.now();

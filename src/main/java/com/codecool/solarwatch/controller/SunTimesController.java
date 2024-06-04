@@ -1,6 +1,6 @@
 package com.codecool.solarwatch.controller;
 
-import com.codecool.solarwatch.model.dto.CityRequestDTO;
+import com.codecool.solarwatch.model.dto.CityDTO;
 import com.codecool.solarwatch.model.dto.SunTimeReportDTO;
 import com.codecool.solarwatch.model.dto.SunTimeRequestDTO;
 import com.codecool.solarwatch.service.OpenWeatherService;
@@ -32,7 +32,7 @@ public class SunTimesController {
     }
 
     @PutMapping("/city/{cityName}")
-    public ResponseEntity<Void> updateCity(@PathVariable String cityName, @RequestBody CityRequestDTO cityDTO) {
+    public ResponseEntity<Void> updateCity(@PathVariable String cityName, @RequestBody CityDTO cityDTO) {
         openWeatherService.updateCity(cityName, cityDTO);
         return ResponseEntity.ok(null);
     }
@@ -44,7 +44,7 @@ public class SunTimesController {
     }
 
     @PostMapping("/city")
-    public ResponseEntity<Void> createCity(@RequestBody CityRequestDTO cityDTO) {
+    public ResponseEntity<Void> createCity(@RequestBody CityDTO cityDTO) {
         openWeatherService.saveCity(cityDTO);
         return ResponseEntity.status(HttpStatus.CREATED).build();
     }
