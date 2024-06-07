@@ -58,13 +58,13 @@ public class SunTimeService {
     }
 
     @Transactional
-    public void createSunTime(SunTimeRequestDTO sunTimeDTO) {
-        City city = openWeatherService.getCity(sunTimeDTO.city());
+    public void createSunTime(SunTimeRequestDTO sunTimeRequestDTO) {
+        City city = openWeatherService.getCity(sunTimeRequestDTO.city());
 
         SunTime sunTime = new SunTime();
-        updateSunTimeData(sunTime, city, sunTimeDTO);
+        updateSunTimeData(sunTime, city, sunTimeRequestDTO);
         sunTimeRepository.save(sunTime);
-        logger.info("Created new sun time data for city: {}, date: {}", sunTimeDTO.city(), sunTimeDTO.date());
+        logger.info("Created new sun time data for city: {}, date: {}", sunTimeRequestDTO.city(), sunTimeRequestDTO.date());
     }
 
     private SunTime fetchSunTimeToDB(City city, LocalDate date) {
