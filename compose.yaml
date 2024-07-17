@@ -31,5 +31,7 @@ services:
       context: .
       dockerfile: frontend/express/Dockerfile
     container_name: solarwatch-frontend
+    environment:
+      BACKEND_URL: ${BACKEND_URL}
     ports:
       - "3000:3000"

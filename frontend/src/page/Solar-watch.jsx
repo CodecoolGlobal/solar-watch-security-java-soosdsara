@@ -17,7 +17,7 @@ const SolarWatch = () => {
     if (!token) {
       navigate("/");
     }
-  }, [navigate]);
+  }, []);
 
   async function handleSubmit(e) {
     e.preventDefault();

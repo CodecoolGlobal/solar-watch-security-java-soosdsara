@@ -2,10 +2,10 @@ import express from 'express';
 import { createProxyMiddleware } from 'http-proxy-middleware';
 
 const app = express();
-const PORT = 3000;
+const PORT = process.env.PORT || 3000;
 
 app.use('/api', createProxyMiddleware({
-    target: 'http://solarwatch-backend:8080/api',
+    target: `${process.env.BACKEND_URL}/api`,
     changeOrigin: true
 }));
 

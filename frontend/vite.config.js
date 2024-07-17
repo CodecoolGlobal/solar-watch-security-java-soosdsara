@@ -1,5 +1,8 @@
+import dotenv from 'dotenv'
 import { defineConfig } from 'vite'
 import react from '@vitejs/plugin-react'
+
+dotenv.config( {path: '../.env' })
 
 // https://vitejs.dev/config/
 export default defineConfig({
@@ -9,7 +12,7 @@ export default defineConfig({
     strictPort:true,
     port:5173,
     proxy: {
-      '/api': 'http://backend:8080'
+      '/api': process.env.BACKEND_URL
     },
   },
 })
