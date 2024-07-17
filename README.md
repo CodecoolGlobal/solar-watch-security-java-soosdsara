@@ -4,6 +4,9 @@
 <!-- PROJECT SHIELDS -->
 [![LinkedIn][linkedin-shield]][linkedin-url]
 
+<h3 align="center">Solar Watch</h3>
+
+
 <!-- TABLE OF CONTENTS -->
 <details>
   <summary>Table of Contents</summary>
@@ -19,12 +22,12 @@
       <ul>
         <li><a href="#prerequisites">Prerequisites</a></li>
         <li><a href="#installation">Installation</a></li>
+        <li><a href="#with-docker">Steps with Docker</a></li>
+        <li><a href="#without-docker">Steps withot Docke</a></li>
       </ul>
     </li>
     <li><a href="#usage">Usage</a></li>
     <li><a href="#roadmap">Roadmap</a></li>
-    <li><a href="#contributing">Contributing</a></li>
-    <li><a href="#acknowledgments">Acknowledgments</a></li>
   </ol>
 </details>
 
@@ -33,9 +36,10 @@
 
 A small application that simply shows us the time of sunrise and sunset by entering a date and city.
 
-KÉP
+[![Product Name Screen Shot][login-screenshot]]
 
 ### Built With
+<a id="built-with"></a>
 
 * [![JavaScript][JavaScript.com]][JavaScript-url]
 * [![Java][Java.com]][Java-url]
@@ -43,6 +47,7 @@ KÉP
 * [![React][React.js]][React-url]
 * [![Spring Boot][Spring.com]][Spring-url]
 * [![Postgresql][Postgresql.com]][Postgresql-url]
+* [![Docker][Docker.com]][Docker-url]
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
@@ -50,8 +55,10 @@ KÉP
 
 <!-- GETTING STARTED -->
 ## Getting Started
+<a id="getting-started"></a>
 
 ### Prerequisites
+<a id="prerequisites"></a>
 
 **With Docker**
 
@@ -69,6 +76,7 @@ KÉP
 
 
 ### Installation
+<a id="installation"></a>
 
 1. Clone the repo
  ```
@@ -76,69 +84,80 @@ KÉP
  cd Project-Name
  ```
 
+2. Create a new PostgreSQL database in terminal or with pgAdmin4.
+
+3. Set the following environment variables in the .env file:
+```
+JWT_SECRET=your_jwt_secret_key
+DATABASE_USERNAME=your_database_username
+DATABASE_PASSWORD=your_database_password
+``` 
+
 #### With Docker
+<a id="with-docker"></a>
 
-1. Set the following environment variables:
- ```
-${JWT_SECRET}
-${DATABASE_URL}
-${DATABASE_USERNAME}
-${DATABASE_PASSWORD}
- ```
+4. Set the following environment variables in the .env file:
+```
+DATABASE_URL=jdbc:postgresql://solarwatch-database:5432/your_database
+BACKEND_URL=http://backend:8080
+``` 
 
-2. Run the following command to start all necessary services:
+5. Run the following command to start all necessary services:
 ```
 docker-compose up
 ```
 
 Backend availability: http://localhost:8080
 
-Frontend availability: http://localhost:5173
+Frontend availability: http://localhost:3000
 
 
 #### Without Docker
+<a id="without-docker"></a>
 
-**Backend:** 
-1. Navigate to the backend library:
- ```
- cd backend
- ```
-2. Set the following environment variables:
+  **Backend:**
+
+  4. Set the following environment variables in the .env file:
   ```
-  ${JWT_SECRET}
-  ${DATABASE_URL}
-  ${DATABASE_USERNAME}
-  ${DATABASE_PASSWORD}
-  ```
- 3. Download dependencies:
- ```
- ./mvnw clean install
- ```
- 4. Start the application:
- ```
- ./mvnw spring-boot:run
- ```
+  DATABASE_URL=jdbc:postgresql://localhost:5432/your_database
+  BACKEND_URL=http://localhost:8080
+  ``` 
+  
+  5. Navigate to the backend library:
+   ```
+   cd backend
+   ```
+  
+  6. Download dependencies:
+   ```
+   ./mvnw clean install
+   ```
+  
+  7. Start the application:
+   ```
+   ./mvnw spring-boot:run
+   ```
 
 Backend availability: http://localhost:8080
 
-**Frontend:**
-1. Open a new terminal window and navigate to the frontend directory:
-```
-cd frontend
-```
-2. Install dependencies:
-```
-npm install
-```
-3. Start the application:
-```
-npm run dev
-```
+  **Frontend:**
+
+  4. Open a new terminal window and navigate to the frontend directory:
+  ```
+  cd frontend
+  ```
+  
+  5. Install dependencies:
+  ```
+  npm install
+  ```
+  
+  6. Start the application:
+  ```
+  npm run dev
+  ```
 
 Frontend availability: http://localhost:5173
-
-**Express:**
-.........
 
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
@@ -147,10 +166,11 @@ Frontend availability: http://localhost:5173
 
 <!-- USAGE EXAMPLES -->
 ## Usage
+<a id="usage"></a>
 
 Simply select a date, enter a city name, and the two times will appear.
 
-KÉP
+[![Product Name Screen Shot][product-screenshot]]
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
@@ -158,6 +178,7 @@ KÉP
 
 <!-- ROADMAP -->
 ## Roadmap
+<a id="roadmap"></a>
 
 - [x] Add UI message
 - [ ] Add Loading page
@@ -169,44 +190,8 @@ See the [open issues](https://github.com/CodecoolGlobal/solar-watch-security-jav
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
-
-
-<!-- CONTRIBUTING -->
-## Contributing
-
-1. Fork the Project
-2. Create your Feature Branch (`git checkout -b feature/AmazingFeature`)
-3. Commit your Changes (`git commit -m 'Add some AmazingFeature'`)
-4. Push to the Branch (`git push origin feature/AmazingFeature`)
-5. Open a Pull Request
-
-<p align="right">(<a href="#readme-top">back to top</a>)</p>
-
-
-<!-- ACKNOWLEDGMENTS -->
-## Acknowledgments
-
-* [Choose an Open Source License](https://choosealicense.com)
-* [GitHub Emoji Cheat Sheet](https://www.webpagefx.com/tools/emoji-cheat-sheet)
-* [Malven's Flexbox Cheatsheet](https://flexbox.malven.co/)
-* [Malven's Grid Cheatsheet](https://grid.malven.co/)
-* [Img Shields](https://shields.io)
-* [GitHub Pages](https://pages.github.com)
-* [Font Awesome](https://fontawesome.com)
-* [React Icons](https://react-icons.github.io/react-icons/search)
-
-<p align="right">(<a href="#readme-top">back to top</a>)</p>
-
 <!-- MARKDOWN LINKS & IMAGES -->
 <!-- https://www.markdownguide.org/basic-syntax/#reference-style-links -->
-[contributors-shield]: https://img.shields.io/github/contributors/othneildrew/Best-README-Template.svg?style=for-the-badge
-[contributors-url]: https://github.com/othneildrew/Best-README-Template/graphs/contributors
-[forks-shield]: https://img.shields.io/github/forks/othneildrew/Best-README-Template.svg?style=for-the-badge
-[forks-url]: https://github.com/othneildrew/Best-README-Template/network/members
-[stars-shield]: https://img.shields.io/github/stars/othneildrew/Best-README-Template.svg?style=for-the-badge
-[stars-url]: https://github.com/othneildrew/Best-README-Template/stargazers
-[issues-shield]: https://img.shields.io/github/issues/othneildrew/Best-README-Template.svg?style=for-the-badge
-[issues-url]: https://github.com/othneildrew/Best-README-Template/issues
 [linkedin-shield]: https://img.shields.io/badge/LinkedIn-frontend?logo=Linkedin&logoColor=black&labelColor=blue&color=blue
 [linkedin-url]: https://linkedin.com/in/sára-soós-251772305
 [product-screenshot]: images/screenshot.png
@@ -222,3 +207,8 @@ See the [open issues](https://github.com/CodecoolGlobal/solar-watch-security-jav
 [JavaScript-url]: https://developer.mozilla.org/en-US/docs/Web/JavaScript
 [Vite.com]: https://img.shields.io/badge/Vite-frontend?style=for-the-badge&logo=vite&labelColor=yellow&color=yellow
 [Vite-url]: https://vitejs.dev/
+[Docker.com]: https://img.shields.io/badge/Docker-docker?style=for-the-badge&logo=Docker&labelColor=red&color=red
+[Docker-url]: https://www.docker.com/
+[login-screenshot]: images/login.png
+[product-screenshot]: images/example.png
+
