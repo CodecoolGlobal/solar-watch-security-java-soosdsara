@@ -86,7 +86,7 @@ A small application that simply shows us the time of sunrise and sunset by enter
 
 2. Create a new PostgreSQL database in terminal or with pgAdmin4.
 
-3. Set the following environment variables in the .env file:
+3. Copy the _.env.sample_ as _.env_ and set the following environment variables:
 ```
 JWT_SECRET=your_jwt_secret_key
 DATABASE_USERNAME=your_database_username
