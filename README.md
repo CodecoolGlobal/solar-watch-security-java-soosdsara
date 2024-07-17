@@ -36,7 +36,7 @@
 
 A small application that simply shows us the time of sunrise and sunset by entering a date and city.
 
-[![Product Name Screen Shot][login-screenshot]]
+[![Login Screen Shot][login-screenshot]]
 
 ### Built With
 <a id="built-with"></a>
@@ -170,7 +170,7 @@ Frontend availability: http://localhost:5173
 
 Simply select a date, enter a city name, and the two times will appear.
 
-[![Product Name Screen Shot][product-screenshot]]
+[![Example Screen Shot][example-screenshot]]
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
@@ -210,5 +210,5 @@ See the [open issues](https://github.com/CodecoolGlobal/solar-watch-security-jav
 [Docker.com]: https://img.shields.io/badge/Docker-docker?style=for-the-badge&logo=Docker&labelColor=red&color=red
 [Docker-url]: https://www.docker.com/
 [login-screenshot]: images/login.png
-[product-screenshot]: images/example.png
+[example-screenshot]: images/example.png
 
